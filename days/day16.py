@@ -1,39 +1,37 @@
 from collections import deque
-import json
 
-
-def dfs(cache: dict, valves: dict, distances: dict, opened: dict, time: int, valve: str) -> int : 
+def dfs(cache: dict, valves: dict, indices: dict, distances: dict, bitmask: int, time: int, valve: str) -> int : 
 
     maxtime = 0
-    hash_val = hash(json.dumps(opened, sort_keys=True))
 
-    if (valve, time, hash_val) in cache :
-        return cache[(valve, time, hash_val)]
+    if (valve, time, bitmask) in cache :
+        return cache[(valve, time, bitmask)]
 
-    opened[valve] = 1
 
     for neighbour in distances[valve] :
-    
-        if neighbour in opened: 
+
+        bit = 1 << indices[neighbour]
+
+        if bit & bitmask:
             continue
 
         remaining_time = time - distances[valve][neighbour] - 1
 
         if remaining_time <= 0 :
             continue
-        maxtime = max(maxtime, dfs(cache, valves, distances, opened, remaining_time, neighbour) + int(valves[neighbour]) * remaining_time)
 
-    cache[(valve, time, hash_val)] = maxtime
+        maxtime = max(maxtime, dfs(cache, valves, indices, distances, bit | bitmask, remaining_time, neighbour) + int(valves[neighbour]) * remaining_time)
 
-    opened.popitem()
-
+        print (remaining_time)
+    cache[(valve, time, bitmask)] = maxtime
+    # print((valve, time, bitmask) ,  maxtime)
     return maxtime
 
 
 def part1(data: list[str]) -> int:
 
     retval = -1
-    valves = {}
+    valves = {} 
     tunnels = {}
 
     for line in data :
@@ -82,10 +80,14 @@ def part1(data: list[str]) -> int:
         if valve != "AA" :
             del distances[valve]["AA"]
 
-    opened = {}
     cache = {}
+    indices = {}
 
-    retval = dfs(cache, valves, distances, opened, 30, "AA")
+    for i, valve in enumerate(valves) :
+        if valve != "AA" and valves[valve] != 0 :
+            indices[valve] = i
+
+    retval = dfs(cache, valves, indices, distances, 0, 30, "AA")
 
     return retval
 
