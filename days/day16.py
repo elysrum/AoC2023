@@ -1,37 +1,39 @@
 from collections import deque
+import json
 
-def dfs(cache: dict, valves: dict, indices: dict, distances: dict, bitmask: int, time: int, valve: str) -> int : 
+
+def dfs(cache: dict, valves: dict, distances: dict, opened: dict, time: int, valve: str) -> int : 
 
     maxtime = 0
+    hash_val = hash(json.dumps(opened, sort_keys=True))
 
-    if (valve, time, bitmask) in cache :
-        return cache[(valve, time, bitmask)]
+    if (valve, time, hash_val) in cache :
+        return cache[(valve, time, hash_val)]
 
+    opened[valve] = 1
 
     for neighbour in distances[valve] :
-
-        bit = 1 << indices[neighbour]
-
-        if bit & bitmask:
+    
+        if neighbour in opened: 
             continue
 
         remaining_time = time - distances[valve][neighbour] - 1
 
         if remaining_time <= 0 :
             continue
+        maxtime = max(maxtime, dfs(cache, valves, distances, opened, remaining_time, neighbour) + int(valves[neighbour]) * remaining_time)
 
-        maxtime = max(maxtime, dfs(cache, valves, indices, distances, bit | bitmask, remaining_time, neighbour) + int(valves[neighbour]) * remaining_time)
+    cache[(valve, time, hash_val)] = maxtime
 
-        print (remaining_time)
-    cache[(valve, time, bitmask)] = maxtime
-    # print((valve, time, bitmask) ,  maxtime)
+    del opened[valve]
+
     return maxtime
 
 
 def part1(data: list[str]) -> int:
 
     retval = -1
-    valves = {} 
+    valves = {}
     tunnels = {}
 
     for line in data :
@@ -46,7 +48,7 @@ def part1(data: list[str]) -> int:
             target = targets[i].strip(",")
             targets[i] = target
 
-        valves[valve] = rate
+        valves[valve] = int(rate)
         tunnels[valve] = targets
 
     distances= {}
@@ -80,86 +82,12 @@ def part1(data: list[str]) -> int:
         if valve != "AA" :
             del distances[valve]["AA"]
 
+    opened = {}
     cache = {}
-    indices = {}
 
-    for i, valve in enumerate(valves) :
-        if valve != "AA" and valves[valve] != 0 :
-            indices[valve] = i
-
-    retval = dfs(cache, valves, indices, distances, 0, 30, "AA")
+    retval = dfs(cache, valves, distances, opened, 30, "AA")
 
     return retval
-
-
-# def part1(data: list[str]) -> int :
-#     valves = {}
-#     tunnels = {}
-
-#     for line in data:
-#         line = line.strip()
-#         valve = line.split()[1]
-#         flow = int(line.split(";")[0].split("=")[1])
-#         targets = line.split("to ")[1].split(" ", 1)[1].split(", ")
-#         valves[valve] = flow
-#         tunnels[valve] = targets
-
-#     dists = {}
-#     nonempty = []
-
-#     for valve in valves:
-#         if valve != "AA" and not valves[valve]:
-#             continue
-        
-#         if valve != "AA":
-#             nonempty.append(valve)
-
-#         dists[valve] = {valve: 0, "AA": 0}
-#         visited = {valve}
-        
-#         queue = deque([(0, valve)])
-        
-#         while queue:
-#             distance, position = queue.popleft()
-#             for neighbor in tunnels[position]:
-#                 if neighbor in visited:
-#                     continue
-#                 visited.add(neighbor)
-#                 if valves[neighbor]:
-#                     dists[valve][neighbor] = distance + 1
-#                 queue.append((distance + 1, neighbor))
-
-#         del dists[valve][valve]
-#         if valve != "AA":
-#             del dists[valve]["AA"]
-
-#     indices = {}
-
-#     for index, element in enumerate(nonempty):
-#         indices[element] = index
-
-#     # cache = {}
-
-#     def dfs(time, valve, bitmask):
-#         # if (time, valve, bitmask) in cache:
-#         #     return cache[(time, valve, bitmask)]
-        
-#         maxval = 0
-#         for neighbor in dists[valve]:
-#             bit = 1 << indices[neighbor]
-#             if bitmask & bit:
-#                 continue
-#             remtime = time - dists[valve][neighbor] - 1
-#             if remtime <= 0:
-#                 continue
-#             maxval = max(maxval, dfs(remtime, neighbor, bitmask | bit) + valves[neighbor] * remtime)
-#             # maxval = max(maxval, dfs(remtime, neighbor, bitmask) + valves[neighbor] * remtime)
-            
-            
-#         # cache[(time, valve, bitmask)] = maxval
-#         return maxval
-
-#     return dfs(30, "AA", 0)
 
 
 def part2(data: list[str]) -> int:
