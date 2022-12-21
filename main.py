@@ -1,6 +1,6 @@
 import support.support
 import days.day1
-# import days.day2
+import days.day2
 import days.day3
 import days.day4
 import days.day5
@@ -14,14 +14,15 @@ import days.day12
 import days.day13
 import days.day14
 import days.day15
+import days.day16
 
 
 def main() -> int:
     #  Run Days
     data = support.support.read_day_data(1)
     print (f"Day 1 - Part 1: {days.day1.part1(data)} - Part 2: {days.day1.part2(data)}")
-    # data = support.support.read_day_data(2)
-    # print (f"Day 2 - Part 1: {days.day2.part1(data)} - Part 2: {days.day2.part2(data)}")
+    data = support.support.read_day_data(2)
+    print (f"Day 2 - Part 1: {days.day2.part1(data)} - Part 2: {days.day2.part2(data)}")
     data = support.support.read_day_data(3)
     print (f"Day 3 - Part 1: {days.day3.part1(data)} - Part 2: {days.day3.part2(data)}")
     data = support.support.read_day_data(4)
@@ -47,8 +48,10 @@ def main() -> int:
     # print (f"Day 13 - Part 1: {days.day13.part1(data)} - Part 2: {days.day13.part2(data)}")
     # data = support.support.read_day_data(14)
     # print (f"Day 14 - Part 1: {days.day14.part1(data)} - Part 2: {days.day14.part2(data)}")
-    data = support.support.read_day_data(15)
-    print (f"Day 15 - Part 1: {days.day15.part1(data, 2000000)} - Part 2: {days.day15.part2(data, 4000000)}")
+    # data = support.support.read_day_data(15)
+    # print (f"Day 15 - Part 1: {days.day15.part1(data, 2000000)} - Part 2: {days.day15.part2(data, 4000000)}")
+    data = support.support.read_day_data(16)
+    print (f"Day 16 - Part 1: {days.day16.part1(data)} - Part 2: {days.day16.part2(data)}")
     return 0
 
 
