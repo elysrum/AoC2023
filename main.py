@@ -1,6 +1,6 @@
 import support.support
 import days.day1
-import days.day2
+# import days.day2
 import days.day3
 import days.day4
 import days.day5
@@ -21,8 +21,8 @@ def main() -> int:
     #  Run Days
     data = support.support.read_day_data(1)
     print (f"Day 1 - Part 1: {days.day1.part1(data)} - Part 2: {days.day1.part2(data)}")
-    data = support.support.read_day_data(2)
-    print (f"Day 2 - Part 1: {days.day2.part1(data)} - Part 2: {days.day2.part2(data)}")
+    # data = support.support.read_day_data(2)
+    # print (f"Day 2 - Part 1: {days.day2.part1(data)} - Part 2: {days.day2.part2(data)}")
     data = support.support.read_day_data(3)
     print (f"Day 3 - Part 1: {days.day3.part1(data)} - Part 2: {days.day3.part2(data)}")
     data = support.support.read_day_data(4)

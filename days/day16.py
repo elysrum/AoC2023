@@ -1,9 +1,14 @@
 from collections import deque
+import json
 
 
-def dfs(valves: dict, distances: dict, opened: dict, time: int, valve: str) -> int : 
+def dfs(cache: dict, valves: dict, distances: dict, opened: dict, time: int, valve: str) -> int : 
 
     maxtime = 0
+    hash_val = hash(json.dumps(opened, sort_keys=True))
+
+    if (valve, time, hash_val) in cache :
+        return cache[(valve, time, hash_val)]
 
     opened[valve] = 1
 
@@ -16,7 +21,9 @@ def dfs(valves: dict, distances: dict, opened: dict, time: int, valve: str) -> i
 
         if remaining_time <= 0 :
             continue
-        maxtime = max(maxtime, dfs(valves, distances, opened, remaining_time, neighbour) + int(valves[neighbour]) * remaining_time)
+        maxtime = max(maxtime, dfs(cache, valves, distances, opened, remaining_time, neighbour) + int(valves[neighbour]) * remaining_time)
+
+    cache[(valve, time, hash_val)] = maxtime
 
     opened.popitem()
 
@@ -76,8 +83,9 @@ def part1(data: list[str]) -> int:
             del distances[valve]["AA"]
 
     opened = {}
+    cache = {}
 
-    retval = dfs(valves, distances, opened, 30, "AA")
+    retval = dfs(cache, valves, distances, opened, 30, "AA")
 
     return retval
 
