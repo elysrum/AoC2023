@@ -2,8 +2,8 @@ import os
 
 def read_day_data(day_number: int) -> list[str]:
 
-    mac_file_name = f"input/day{day_number}.txt"
-    windows_file_name = f"input/day{day_number}.txt"
+    mac_file_name = f"input/day{day_number:02}.txt"
+    windows_file_name = f"input/day{day_number:02}.txt"
     
     if os.name == "nt" : 
         file_name = windows_file_name
