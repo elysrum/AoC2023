@@ -27,43 +27,46 @@ def part1(data: list[str]) -> int:
 def part2(data: list[str]) -> int:
 
     accum = 0
-    char_value = "0"
     for data_line in data:
         if data_line == "":
             pass
         else:
-            char_value = ""
-            res_list = re.findall(r"[\d]|[one]+|[two]+|[three]+|[four]+|[five]+|[six]+|[seven]+|[eight]+|[nine]+", data_line)
+            value1 = 0
+            value2 = 0
+            res_list = re.findall(r"(?=([\d]|one|two|three|four|five|six|seven|eight|nine))", data_line)
             if res_list:
-                character = res_list[0].index.group()
-                if character.isnumeric() : 
-                    char_value += character
-                else:
-                    match character :
-                        case "one" : 
-                                character = "1"
-                        case "two" : 
-                                character = "2"
-                        case "three" : 
-                                character = "3"
-                        case "four" : 
-                                character = "4"
-                        case "five" : 
-                                character = "5"
-                        case "six" : 
-                                character = "6"
-                        case "seven" : 
-                                character = "7"
-                        case "eight" : 
-                                character = "8"
-                        case "nine" : 
-                                character = "9"
-                                
-                    char_value += character
-                
-        accum += int(char_value)
+                value1 = calculate_value(res_list[0])
+                value2 = calculate_value(res_list[-1]) 
+                accum = accum + (value1 * 10) + value2               
 
     return accum
 
+def calculate_value (input : str) -> int :
 
+    result = 0
+    if input.isnumeric() : 
+        result = int(input)
+    else:
+        match input :
+            case "one" : 
+                    result = 1
+            case "two" : 
+                    result = 2
+            case "three" : 
+                    result = 3
+            case "four" : 
+                    result = 4
+            case "five" : 
+                    result = 5
+            case "six" : 
+                    result = 6
+            case "seven" : 
+                    result = 7
+            case "eight" : 
+                    result = 8
+            case "nine" : 
+                    result = 9
+            case "zero" :
+                    result = 0                        
+    return result
 
