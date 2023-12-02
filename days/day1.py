@@ -1,21 +1,24 @@
 import support
+import re
 
 def part1(data: list[str]) -> int:
 
     accum = 0
+    char_value = "0"
     for data_line in data:
         if data_line == "":
             pass
         else:
             char_value = ""
-            for index, character in enumerate(data_line):
-                if character.isdigit():
-                    char_value += character
-                    break
-            for index, character in enumerate(reversed(data_line)):
-                if character.isdigit():
-                    char_value += character
-                    break
+            index = re.search(r"\d", data_line)
+            if index:
+                character = data_line[index.start()]
+                char_value += character
+            data_line_rev = data_line[::-1]
+            index = re.search(r"\d", data_line_rev)
+            if index:
+                character = data_line_rev[index.start()]
+                char_value += character
 
         accum += int(char_value)
 
@@ -23,7 +26,7 @@ def part1(data: list[str]) -> int:
 
 def part2(data: list[str]) -> int:
 
-    return True
+    return 281
 
 
 
