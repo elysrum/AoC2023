@@ -1,89 +1,92 @@
+
 def part1(data: list[str]) -> int:
-    score = 0
+    games_total = 0
+
+    max_red = 12
+    max_blue = 14
+    max_green = 13
 
     for game in data:
-        your_hand = game[0]
-        my_hand = game[2]
+        bust = False
+        line_parts = game.strip().split(":")
+        game_number = line_parts[0].split()[-1]
 
-        match your_hand:
-            case 'A': # Rock
-                match my_hand:
-                    case 'X': # Rock - Draw
-                        score += 1
-                        score += 3 
-                    case 'Y': # Paper - Win
-                        score += 2
-                        score += 6 # Draw 
-                    case 'Z': # Scissors - Lose
-                        score += 3
-                        score += 0 
-            case 'B': # Paper
-                match my_hand:
-                    case 'X': # Rock - Lose
-                        score += 1
-                        score += 0 
-                    case 'Y': # Paper - Draw
-                        score += 2
-                        score += 3 
-                    case 'Z': # Scissors - Win
-                        score += 3
-                        score += 6 
-            case 'C': # Scissors
-                match my_hand:
-                    case 'X': # Rock - Win
-                        score += 1
-                        score += 6
-                    case 'Y': # Paper - Lose
-                        score += 2
-                        score += 0 
-                    case 'Z': # Scissors - Draw
-                        score += 3
-                        score += 3 
-            case _:
-                pass
-    return score
+        game_data = line_parts[1].split(";")
+
+        
+        for game in game_data :
+            red_count = 0
+            blue_count = 0
+            green_count = 0
+
+            cubes = game.split(",")
+
+            for cube in cubes :
+                hand = cube.split()
+                match hand[1] :
+                    case "red" :
+                        red_count += int(hand[0])
+
+                    case "green" :
+                        green_count += int(hand[0])
+
+                    case "blue" :
+                        blue_count += int(hand[0])
+            if red_count > max_red or \
+                blue_count > max_blue or \
+                green_count > max_green :
+                bust = True
+        
+        if not bust :
+            games_total += int(game_number)
+
+    return games_total
 
 def part2(data: list[str]) -> int:
-    score = 0
+
+    games_total = 0
+
+    max_red = 1
+    max_blue = 1
+    max_green = 1
 
     for game in data:
-        your_hand = game[0]
-        my_hand = game[2]
 
-        match your_hand:
-            case 'A': # Rock
-                match my_hand:
-                    case 'X': 
-                        score += 3
-                        score += 0 # Lose
-                    case 'Y': 
-                        score += 1
-                        score += 3 # Draw 
-                    case 'Z': 
-                        score += 2
-                        score += 6 # Win
-            case 'B': # Paper
-                match my_hand:
-                    case 'X': 
-                        score += 1
-                        score += 0 # Lose
-                    case 'Y': 
-                        score += 2
-                        score += 3 # Draw
-                    case 'Z': 
-                        score += 3
-                        score += 6 # Win
-            case 'C': # Scissors
-                match my_hand:
-                    case 'X': 
-                        score += 2
-                        score += 0 # Lose
-                    case 'Y': 
-                        score += 3
-                        score += 3 # Draw
-                    case 'Z': 
-                        score += 1
-                        score += 6 # Win
-            case _:
-                pass
-    return score
+        line_parts = game.strip().split(":")
+        game_number = line_parts[0].split()[-1]
+
+        game_data = line_parts[1].split(";")
+        power_val = 0
+
+        for game in game_data :
+            red_count = 0
+            blue_count = 0
+            green_count = 0
+
+            cubes = game.split(",")
+
+            for cube in cubes :
+                hand = cube.split()
+                match hand[1] :
+                    case "red" :
+                        red_count += int(hand[0])
+                        if red_count > max_red :
+                            max_red = red_count
+
+                    case "green" :
+                        green_count += int(hand[0])
+                        if green_count > max_green :
+                            max_green = green_count
+                    case "blue" :
+                        blue_count += int(hand[0])
+                        if blue_count > max_blue:
+                            max_blue = blue_count
+            power_val = max_red * max_blue * max_green    
+        
+        games_total += power_val 
+        max_red = 1
+        max_blue = 1
+        max_green = 1
+
+
+    return games_total
