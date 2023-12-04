@@ -1,38 +1,31 @@
+import re
+
 def part1(data: list[str]) -> int:
-    count = 0
+    total = 0
 
     for line in data:
-        ranges = line.strip().split(",")
-        x = ranges[0].split("-")
-        y = ranges[1].split("-")
+        card = line.strip().split("|")
+        left_side = card[0]
+        right_side = card[1]
+        winning_numbers = sorted([int(x) for x in (re.findall(r"\d+", left_side[9:]))])
+        played_numbers = sorted([int(x) for x in (re.findall(r"\d+", right_side))])
 
-        x0 = (int) (x[0])
-        x1 = (int) (x[1])
-        y0 = (int) (y[0])
-        y1 = (int) (y[1])
+        matched_number_count = 0
 
-        if  (((x0 <= y0) and (x1 >= y1)) or 
-            ((x0 >= y0) and (x1 <= y1))):
-                count += 1
+        for winning_number in winning_numbers :
+            for played_number in played_numbers :
+                if winning_number == played_number : 
+                    matched_number_count += 1
+
+        if matched_number_count == 1 : 
+            total += 1
+        elif matched_number_count > 1 :
+            total += 2 ** (matched_number_count-1)
         else:
             pass
-    return count
+
+    return total
 
 def part2(data: list[str]) -> int:
-    count = 0
 
-    for line in data:
-        ranges = line.strip().split(",")
-        x = ranges[0].split("-")
-        y = ranges[1].split("-")
-
-        x0 = (int) (x[0])
-        x1 = (int) (x[1])
-        y0 = (int) (y[0])
-        y1 = (int) (y[1])
-
-        if ((x1 < y0) or (x0 > y1)):
-            pass
-        else:
-            count += 1 
-    return count
+    return 4
