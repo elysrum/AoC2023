@@ -43,4 +43,4 @@ class TestDay05(unittest.TestCase):
         self.assertEqual(days.day5.part1(self.data), 35)
 
     def test_day05_part2(self):
-        self.assertEqual(days.day5.part2(self.data), 35)
+        self.assertEqual(days.day5.part2(self.data), 46)
