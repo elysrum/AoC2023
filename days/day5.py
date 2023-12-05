@@ -1,94 +1,72 @@
-def part1(data: list[str]) -> str:
-
-    num_stacks, remainder = divmod(len(data[0]), 4)
-    process_stacks = True
-
-    stacks = [[] for _ in range(num_stacks)]
-    stack_strings = []
-    
-
-    for row in data:
-        if row.find("[") >= 0 :
-            #  Still in the Stack Building Phase
-            stack_strings.insert(0,row)
-        elif row.find("move") >= 0:
-            # Now in the stack movement phase
-            instructions = row.split()
-            count = int(instructions[1])
-            from_stack = int(instructions[3]) - 1
-            to_stack = int(instructions[5]) - 1
-
-            i = 0
-            while i < count :
-                stacks[to_stack].append(stacks[from_stack].pop())
-                i += 1
-        else:
-            # Ignore blank lines and stack numbers
-            if process_stacks :
-                for string_row in stack_strings :
-                    for i in range(0, num_stacks):
-                        offset = i*4
-                        if string_row[offset] == "[" :
-                            stacks[i].append(string_row[offset+1 : offset+2])
-                        else:
-                            pass
-                process_stacks = False
-            else :
-                pass
-    
-    output = ""
-    for i in range(0, num_stacks) :
-        output = output + stacks[i].pop()
+def part1(data: list[str]) -> int:
      
-    return output
+    #Extract the Seeds first
+    line = data[0]
+    seeds = line.split()
+    seeds = seeds[1:]
+    map_values = []
+    locn = []
 
-def part2(data: list[str]) -> str:
 
-    num_stacks, remainder = divmod(len(data[0]), 4)
-    process_stacks = True
+    for seed in seeds :
 
-    stacks = [[] for _ in range(num_stacks)]
-    stack_strings = []
-    
+        value = next_value = int(seed)
+        value_found = False
+        
+        for line in data[1:]:
 
-    for row in data:
-        if row.find("[") >= 0 :
-            #  Still in the Stack Building Phase
-            stack_strings.insert(0,row)
-        elif row.find("move") >= 0:
-            # Now in the stack movement phase
-            instructions = row.split()
-            count = int(instructions[1])
-            from_stack = int(instructions[3]) - 1
-            to_stack = int(instructions[5]) - 1
+            # If we hit new line, then start a new map
+            if line[0] == '\n':
+                # Whatever this looks like
+                map_values.clear()
+            elif line[0].isalpha() :
+                #This is the map name
+                if not value_found and next_value == -1 :
+                    next_value = value
+                value = next_value
+                map_values.append(value)
+                value_found = False
+            elif line[0].isnumeric() :
+                # This is the set of ranges
+                line_values = [int(x) for x in (line.split())]
 
-            i = 0
-            temp_stack = []
-            while i < count :
-                temp_stack.append(stacks[from_stack].pop())
-                i += 1
+                if not value_found and value_in_range(value, line_values[0], line_values[1], line_values[2]) :
+                    next_value = mapped_value(value, line_values[0], line_values[1], line_values[2])
+                    map_values.append(next_value)
+                    value_found = True
+                else:
+                    if not value_found :
+                        next_value = -1
+            else:
+                return -1
 
-            temp_stack.reverse()
-            for z in temp_stack:
-                stacks[to_stack].append(z)
+        locn.append(map_values.pop())
 
-        else:
-            # Ignore blank lines and stack numbers
-            if process_stacks :
-                for string_row in stack_strings :
-                    for i in range(0, num_stacks):
-                        offset = i*4
-                        if string_row[offset] == "[" :
-                            stacks[i].append(string_row[offset+1 : offset+2])
-                        else:
-                            pass
-                process_stacks = False
-            else :
-                pass
-    
-    output = ""
-    for i in range(0, num_stacks) :
-        output = output + stacks[i].pop()
+    retVal = sorted(locn)[0]
+
+    return retVal
+
+def part2(data: list[str]) -> int:
+
      
-    return output
+    return 35
+
+# Given a value and a range definitions
+# determine if the value is in the range
+
+def value_in_range(value :int, left :int, right :int, length :int) -> bool:
+    retVal = False
+
+    if (value < right) or (value > (right + length - 1)):
+        retVal = False
+    else:
+        retVal = True
+
+    return retVal
+
+def mapped_value(value :int, left :int, right :int, length :int) -> int:
+
+    retVal = value - right + left
+
+    return retVal
 

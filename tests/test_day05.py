@@ -4,18 +4,43 @@ import days.day5
 class TestDay05(unittest.TestCase):
 
     data = [
-    "    [D]    \n",
-    "[N] [C]    \n",
-    "[Z] [M] [P]\n",
-    " 1   2   3 \n",
-    "\n",
-    "move 1 from 2 to 1\n",
-    "move 3 from 1 to 3\n",
-    "move 2 from 2 to 1\n",
-    "move 1 from 1 to 2\n"]
+"seeds: 79 14 55 13\n",
+"\n",
+"seed-to-soil map:\n",
+"50 98 2\n",
+"52 50 48\n",
+"\n",
+"soil-to-fertilizer map:\n",
+"0 15 37\n",
+"37 52 2\n",
+"39 0 15\n",
+"\n",
+"fertilizer-to-water map:\n",
+"49 53 8\n",
+"0 11 42\n",
+"42 0 7\n",
+"57 7 4\n",
+"\n",
+"water-to-light map:\n",
+"88 18 7\n",
+"18 25 70\n",
+"\n",
+"light-to-temperature map:\n",
+"45 77 23\n",
+"81 45 19\n",
+"68 64 13\n",
+"\n",
+"temperature-to-humidity map:\n",
+"0 69 1\n",
+"1 0 69\n",
+"\n",
+"humidity-to-location map:\n",
+"60 56 37\n",
+"56 93 4\n"]
+    
 
     def test_day05_part1(self):
-        self.assertEqual(days.day5.part1(self.data), "CMZ")
+        self.assertEqual(days.day5.part1(self.data), 35)
 
     def test_day05_part2(self):
-        self.assertEqual(days.day5.part2(self.data), "MCD")
+        self.assertEqual(days.day5.part2(self.data), 35)
