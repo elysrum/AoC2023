@@ -29,6 +29,18 @@ def part1(data: list) -> int:
 
 def part2(data: list) -> int:
 
+    numbers1 = data[0].strip().split(":")[1].split()
+    numbers2 = data[1].strip().split(":")[1].split()
 
-    return 19
+    time = int(''.join(numbers1))
+    distance = int(''.join(numbers2))
+
+    win = 0
+    for y in range(1, time) :
+        time_to_travel = (time - y)
+        max_distance = y * time_to_travel
+        if max_distance > distance : 
+            win += 1
+
+    return win
 
