@@ -39,7 +39,7 @@ def main() -> int:
     # data = support.support.read_day_data(5)
     # print (f"Day 5 - Part 1: {days.day5.part1(data)} - Part 2: {days.day5.part2(data)}")
     data = support.support.read_day_data(6)
-    print (f"Day 6 - Part 1: {days.day6.part1(data[0])} - Part 2: {days.day6.part2(data[0])}")
+    print (f"Day 6 - Part 1: {days.day6.part1(data)} - Part 2: {days.day6.part2(data)}")
     # data = support.support.read_day_data(7)
     # print (f"Day 7 - Part 1: {days.day7.part1(data)} - Part 2: {days.day7.part2(data)}")
     # data = support.support.read_day_data(8)
