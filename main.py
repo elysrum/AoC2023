@@ -4,8 +4,8 @@ import support.support
 # import days.day3
 # import days.day4
 # import days.day5
-import days.day6
-# import days.day7
+# import days.day6
+import days.day7
 # import days.day8
 # import days.day9
 # import days.day10
@@ -38,10 +38,10 @@ def main() -> int:
     # print (f"Day 4 - Part 1: {days.day4.part1(data)} - Part 2: {days.day4.part2(data)}")
     # data = support.support.read_day_data(5)
     # print (f"Day 5 - Part 1: {days.day5.part1(data)} - Part 2: {days.day5.part2(data)}")
-    data = support.support.read_day_data(6)
-    print (f"Day 6 - Part 1: {days.day6.part1(data)} - Part 2: {days.day6.part2(data)}")
-    # data = support.support.read_day_data(7)
-    # print (f"Day 7 - Part 1: {days.day7.part1(data)} - Part 2: {days.day7.part2(data)}")
+    # data = support.support.read_day_data(6)
+    # print (f"Day 6 - Part 1: {days.day6.part1(data)} - Part 2: {days.day6.part2(data)}")
+    data = support.support.read_day_data(7)
+    print (f"Day 7 - Part 1: {days.day7.part1(data)} - Part 2: {days.day7.part2(data)}")
     # data = support.support.read_day_data(8)
     # print (f"Day 8 - Part 1: {days.day8.part1(data)} - Part 2: {days.day8.part2(data)}")
     # data = support.support.read_day_data(9)
