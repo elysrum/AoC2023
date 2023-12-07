@@ -145,12 +145,9 @@ def comparehands (left: Hand, right: Hand) -> int:
         return cmp
     else:
         for i in range (0, 6):
-            if left.cards[i] == right.cards[i] :
-                cmp = 0
-            else:
-                cmp = suite[left.cards[i]] - suite[right.cards[i]]
-                if cmp != 0 :
-                    return cmp
+            cmp = suite[left.cards[i]] - suite[right.cards[i]]
+            if cmp != 0 :
+                return cmp
     return cmp
 
 def compareJokerhands (left: JokerHand, right: JokerHand) -> int:
@@ -161,14 +158,9 @@ def compareJokerhands (left: JokerHand, right: JokerHand) -> int:
         return cmp
     else:
         for i in range (0, 6):
-            if left.cards[i] == right.cards[i] :
-                cmp = 0
-            else:
-                    cmp = jokerSuite[left.cards[i]] - jokerSuite[right.cards[i]]
-                    if cmp != 0 :
-                        return cmp
-                    else:
-                        cmp = 0
+            cmp = jokerSuite[left.cards[i]] - jokerSuite[right.cards[i]]
+            if cmp != 0 :
+                return cmp
     return cmp
 
 def part1(data: list[str]) -> int:
