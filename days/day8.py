@@ -62,7 +62,6 @@ def part2(data: list[str]) -> int:
         if pos[2] == "A" :
             start_nodes.append(pos)
 
-    starting_count = len(start_nodes)
     exitFound = False
     i = 0
     end_state = {}
@@ -81,14 +80,15 @@ def part2(data: list[str]) -> int:
 
             new_nodes.append(new_pos)
 
-            # We've found and end state, record it
+            # We've found and end state, record it and how many iterations it took to get here
             if new_pos[2] == "Z" :
                 end_state[new_pos] = i
 
+            # If we have found an end state for all starting nodes, then we are done,
             if len(end_state) == len(start_nodes):
                 exitFound = True
         
         start_nodes = new_nodes
-    #Multiply all end states together using lowest common multiplier func
+    #Multiply all the iteratiosn for the end states together using lowest common multiplier func
     return lcm(end_state.values())
 
