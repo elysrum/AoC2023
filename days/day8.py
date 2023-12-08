@@ -1,4 +1,13 @@
 from collections import defaultdict
+from math import gcd
+
+# lowest common multiplier
+def lcm(values):
+    retVal = 1
+    for value in values:
+        retVal = (value*retVal)//gcd(value, retVal)
+    
+    return retVal
 
 def part1(data: list[str]) -> int:
 
@@ -56,6 +65,7 @@ def part2(data: list[str]) -> int:
     starting_count = len(start_nodes)
     exitFound = False
     i = 0
+    end_state = {}
 
     while not exitFound:
         lookup = (i % len(instructions))
@@ -65,15 +75,20 @@ def part2(data: list[str]) -> int:
             curr_pos = posn[node]
 
             if (instructions[lookup] == "R") :
-                new_nodes.append(curr_pos[1])
+                new_pos = curr_pos[1]
             else:
-                new_nodes.append(curr_pos[0])
+                new_pos = curr_pos[0]
 
-        count = len(list((filter(lambda x: x[2] == "Z", new_nodes))))
-        if count == starting_count:
-             exitFound = True
+            new_nodes.append(new_pos)
+
+            # We've found and end state, record it
+            if new_pos[2] == "Z" :
+                end_state[new_pos] = i
+
+            if len(end_state) == len(start_nodes):
+                exitFound = True
         
         start_nodes = new_nodes
-
-    return i
+    #Multiply all end states together using lowest common multiplier func
+    return lcm(end_state.values())
 
