@@ -6,8 +6,8 @@ import support.support
 # import days.day5
 # import days.day6
 # import days.day7
-import days.day8
-# import days.day9
+# import days.day8
+import days.day9
 # import days.day10
 # import days.day11
 # import days.day12
@@ -42,10 +42,10 @@ def main() -> int:
     # print (f"Day 6 - Part 1: {days.day6.part1(data)} - Part 2: {days.day6.part2(data)}")
     # data = support.support.read_day_data(7)
     # print (f"Day 7 - Part 1: {days.day7.part1(data)} - Part 2: {days.day7.part2(data)}")
-    data = support.support.read_day_data(8)
-    print (f"Day 8 - Part 1: {days.day8.part1(data)} - Part 2: {days.day8.part2(data)}")
-    # data = support.support.read_day_data(9)
-    # print (f"Day 9 - Part 1: {days.day9.part1(data)} - Part 2: {days.day9.part2(data)}")
+    # data = support.support.read_day_data(8)
+    # print (f"Day 8 - Part 1: {days.day8.part1(data)} - Part 2: {days.day8.part2(data)}")
+    data = support.support.read_day_data(9)
+    print (f"Day 9 - Part 1: {days.day9.part1(data)} - Part 2: {days.day9.part2(data)}")
     # data = support.support.read_day_data(10)
     # res = days.day10.part2(data)
     # print (f"Day 10 - Part 1: {days.day10.part1(data)} - Part 2: \n{res[0:39]}\n{res[40:79]}\n{res[80:119]}\n{res[120:159]}\n{res[160:199]}\n{res[200:]}\n")
