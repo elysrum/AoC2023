@@ -7,8 +7,8 @@ import support.support
 # import days.day6
 # import days.day7
 # import days.day8
-import days.day9
-# import days.day10
+# import days.day9
+import days.day10
 # import days.day11
 # import days.day12
 # import days.day13
