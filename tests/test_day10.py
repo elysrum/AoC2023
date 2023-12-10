@@ -35,8 +35,20 @@ class TestDay10(unittest.TestCase):
              ".|..||..|.\n",
              ".L--JL--J.\n",
              "..........\n"]
-    
-    data5 = ["FF7FSF7F7F7F7F7F---7\n",
+    data5 = [".F----7F7F7F7F-7....\n",
+".|F--7||||||||FJ....\n",
+".||.FJ||||||||L7....\n",
+"FJL7L7LJLJ||LJ.L-7..\n",
+"L--J.L7...LJS7F-7L7.\n",
+"....F-J..F7FJ|L7L7L7\n",
+"....L7.F7||L7|.L7L7|\n",
+".....|FJLJ|FJ|F7|.LJ\n",
+"....FJL-7.||.||||...\n",
+"....L---J.LJ.LJLJ...\n"]
+
+
+    data6 = [
+"FF7FSF7F7F7F7F7F---7\n",
 "L|LJ||||||||||||F--J\n",
 "FL-7LJLJ||||||LJL-77\n",
 "F--JF--7||LJLJ7F7FJ-\n",
@@ -54,4 +66,5 @@ class TestDay10(unittest.TestCase):
     def test_day10_part2(self):
         self.assertEqual(days.day10.part2(self.data1), 1)
         self.assertEqual(days.day10.part2(self.data4), 4)
-        self.assertEqual(days.day10.part2(self.data5), 10)
+        self.assertEqual(days.day10.part2(self.data5), 8)
+        self.assertEqual(days.day10.part2(self.data6), 10)
