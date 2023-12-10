@@ -198,6 +198,11 @@ def part2(data: list[str]) -> int:
             x = x + 1
         y = y + 1
 
+    ######## TODO 
+    ### Need to work out what pipe tile S actuall is 
+    ### and replace it in the loop with correct tile
+    ### then chenge test below to check for start_coord not S
+
     # Need to walk the loop, to capture every tile in the loop
     # So, from the start, follow the pipes until we get back to the start.
     # We dont care what pipe the start is, only whether the next pipe brings
